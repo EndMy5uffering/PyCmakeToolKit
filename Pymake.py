@@ -55,15 +55,15 @@ def build_project_folder(arg_list):
 
     with open(src/"Main.cpp", "w+") as main:
         main.write(MainCPP.TXT)
-        INFO(f"Created Main.cpp file in: {src/"Main.cpp"}")
+        INFO(f"Created Main.cpp file in: {src/'Main.cpp'}")
 
     with open(src/"HelloWorld.cpp", "w+") as hellocpp:
         hellocpp.write(HelloWorldCPP.TXT)
-        INFO(f"Created HelloWorld.cpp file in: {src/"Main.cpp"}")
+        INFO(f"Created HelloWorld.cpp file in: {src/'HelloWorld.cpp'}")
 
     with open(include/"HelloWorld.hpp", "w+") as hellohpp:
         hellohpp.write(HelloWorldHPP.TXT)
-        INFO(f"Created HelloWorld.hpp file in: {include/"Main.hpp"}")
+        INFO(f"Created HelloWorld.hpp file in: {include/'HelloWorld.hpp'}")
 
     LocalCmakeBuilder.generate_local_cmake(project_dir, src, include)
     INFO("Done")
