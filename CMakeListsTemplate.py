@@ -1,5 +1,5 @@
-TEMPLATE_CMAKE_TXT = """cmake_minimum_required (VERSION 3.5)
-project([[PROJECT_NAME]] VERSION 0.0.1 LANGUAGES CXX)
+TEMPLATE_CMAKE_TXT = lambda data: f"""cmake_minimum_required (VERSION 3.5)
+project({data.get("ProjectName", "ProjectName")} VERSION 0.0.1 LANGUAGES CXX)
 
 #find_package(PACKAGE_NAME REQUIRED)
 
@@ -14,23 +14,46 @@ set(OTHER_SOURCE_FILES
 	# put all .c/.cpp here.
 )
 
-include("${CMAKE_SOURCE_DIR}/include/local.cmake")
+""" + """include("${CMAKE_SOURCE_DIR}/include/local.cmake")
 include("${CMAKE_SOURCE_DIR}/src/local.cmake")
 
+# FOR ADDING IN THE REFS OF ALL HEADER FILES OF LIBRARYS
 include_directories(
 	"${CMAKE_SOURCE_DIR}/include/"
+	#${SOME_LIB_HEADERS}
 )
-add_executable("${CMAKE_PROJECT_NAME}"
+
+set(EXECUTABLE_BUILD ON CACHE BOOL "Build an executable")
+set(LIBRARY_STATIC_BUILD OFF CACHE BOOL "Build a static library")
+set(LIBRARY_SHARED_BUILD OFF CACHE BOOL "Build a shared library")
+set(LIBRARY_MODULE_BUILD OFF CACHE BOOL "Build a module library")
+
+set(EXPORT_INCLUDES
 	${HEADER_FILES_INCLUDE_FOLDER}
 	${SOURCE_FILES_SRC_FOLDER}
 	${OTHER_HEADER_FILES}
 	${OTHER_SOURCE_FILES}
 )
 
-# FOR ADDING IN THE REFS OF ALL HEADER FILES OF LIBRARYS
-include_directories(
-	#${SOME_LIB_HEADERS}
-)
+if(EXECUTABLE_BUILD)
+message("Target is build as executable")
+add_executable("${CMAKE_PROJECT_NAME}" ${EXPORT_INCLUDES})
+endif(EXECUTABLE_BUILD)
+
+if(LIBRARY_STATIC_BUILD)
+message("Target is build as library [STATIC]")
+add_library("${CMAKE_PROJECT_NAME}_STATIC" STATIC ${EXPORT_INCLUDES})
+endif(LIBRARY_STATIC_BUILD)
+
+if(LIBRARY_SHARED_BUILD)
+message("Target is build as library [SHARED]")
+add_library("${CMAKE_PROJECT_NAME}_SHARED" SHARED ${EXPORT_INCLUDES})
+endif(LIBRARY_SHARED_BUILD)
+
+if(LIBRARY_MODULE_BUILD)
+message("Target is build as library [SHARED]")
+add_library("${CMAKE_PROJECT_NAME}_MODULE" MODULE ${EXPORT_INCLUDES})
+endif(LIBRARY_MODULE_BUILD)
 
 # FOR LINKING TO LIBRARY FILES (*.a | *.lib)
 target_link_libraries("${CMAKE_PROJECT_NAME}"
