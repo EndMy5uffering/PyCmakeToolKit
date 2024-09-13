@@ -1,4 +1,7 @@
-TEMPLATE_CMAKE_TXT = lambda data: f"""cmake_minimum_required (VERSION 3.5)
+TEMPLATE_CMAKE_TXT = lambda data: f"""#PROJECT WAS CREATED WITH PYMAKE
+#PYMAKE: https://github.com/EndMy5uffering/PyCmakeToolKit
+#THIS FILE CAN BE CHANGED TO FIT YOUR PROJECT. THIS IS ONLY A TEMPLATE FOR A QUICK SETUP.
+cmake_minimum_required (VERSION 3.5)
 project({data.get("ProjectName", "ProjectName")} VERSION 0.0.1 LANGUAGES CXX)
 
 #find_package(PACKAGE_NAME REQUIRED)

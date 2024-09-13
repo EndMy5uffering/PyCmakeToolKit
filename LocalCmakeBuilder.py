@@ -7,8 +7,16 @@ import sys
 SRC_ENDINGS = ['/**/*.cpp', '/**/*.c']
 HEADER_ENDINGS = ['/**/*.hpp', '/**/*.h']
 
-SET_SRC_STR = lambda x: f"set(\n\tSOURCE_FILES_SRC_FOLDER\n{x}\n)"
-SET_HEADER_STR = lambda x: f"set(\n\tHEADER_FILES_INCLUDE_FOLDER\n{x}\n)"
+SET_SRC_STR = lambda x: f"""#PROJECT WAS CREATED WITH PYMAKE
+#PYMAKE: https://github.com/EndMy5uffering/PyCmakeToolKit
+#THIS FILE WILL BE OVERWRITTEN WHEN PYMAKE SCAN IS USED!
+#CHANGES TO THIS FILE WILL NOT CARRY OVER
+set(\n\tSOURCE_FILES_SRC_FOLDER\n{x}\n)"""
+SET_HEADER_STR = lambda x: f"""#PROJECT WAS CREATED WITH PYMAKE
+#PYMAKE: https://github.com/EndMy5uffering/PyCmakeToolKit
+#THIS FILE WILL BE OVERWRITTEN WHEN PYMAKE SCAN IS USED!
+#CHANGES TO THIS FILE WILL NOT CARRY OVER
+set(\n\tHEADER_FILES_INCLUDE_FOLDER\n{x}\n)"""
 
 def generate_local_cmake(relative_parent: Path, src_path: Path, include_path: Path):
     cwd = os.getcwd()
