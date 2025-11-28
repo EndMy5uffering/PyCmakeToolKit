@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Pymake"
+version = "0.0.1"
+description = "Simple python tool for setting up cpp projects ... might still need some work tho :D"
+authors = [{name = "EndMySuffering"}]
+dependencies = []
+
+[project.scripts]
+pymake = "Pymake.Pymake:main"
